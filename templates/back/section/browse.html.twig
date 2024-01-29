@@ -1,0 +1,37 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Liste des sections{% endblock %}
+
+{% block body %}
+<a class="btn btn-primary" href="{{ path('app_back_section_add') }}">Ajouter une section</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom de la section</th>
+            <th>Contenu</th>
+            <th>Type d'articles</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for currentSection in sectionList %}
+        <tr>
+            <td>{{ currentSection.id }}</td>
+            <td>{{ currentSection.name }}</td>
+            <td>{{ currentSection.content }}</td>
+            <td>{{ currentSection.articleType }}</td>
+            <td>
+                <form style="display:inline" method="post" action="{{ path('app_back_section_delete', {'id': currentSection.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
+                    <a href="{{ path('app_back_section_edit', {"id": currentSection.id}) }}" class="btn btn-secondary">Modifier la section</a>
+                    {# <input type="hidden" name="_token" value="{{ csrf_token('delete-section-' ~ currentSection.id) }}"> #}
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+                {# <a class="btn btn-secondary" href="{{ path('app_back_section_article_browse', {id: currentSection.id}) }}">Articles</a> #}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
