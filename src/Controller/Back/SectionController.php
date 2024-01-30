@@ -40,6 +40,33 @@ class SectionController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Page de détail d'une section
+     *
+     * @Route("/{id<\d+>}/read", name="read", methods={"GET"})
+     * 
+     */
+    public function read(Section $section, SectionRepository $sectionRepository, ArticleRepository $articleRepository)
+    {
+        $sectionWithArticles = $articleRepository->findArticlesBySectionId($section->getId());
+
+        // on check si la section existe
+        if ($section === null) {
+            throw $this->createNotFoundException('Section non trouvée !');
+        }
+
+        $articleList = $articleRepository->findBy(['section' => $section]);
+        // dd($articleList);
+
+        return $this->render('back/section/read.html.twig', [
+            'section' => $section,
+            'articleList' => $articleList,
+            
+        ]);
+    }
+
+
     /**
      * @Route("/add", name="add", methods={"GET","POST"})
      */

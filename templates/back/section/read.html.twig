@@ -1,0 +1,66 @@
+{% extends 'base-back.html.twig' %}
+{% block body %}
+<div class="container bg-lighttt pt-5">
+
+        <div class="row mb-2">
+
+            <div class="col">
+
+                <div
+                    class="row g-0 borderrr rrrounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
+                    
+                    <div class="col-8 p-4 d-flex flex-column position-static bg-light">
+                        {# <strong class="d-inline-block mb-2 text-primary">{{ section.name }}</strong> #}
+                        <h3 class="mb-1">{{section.name }}</h3>
+                        <div class="mb-1 text-muted">{{ section.content }} </div>
+                        <div class="mb-1 text-muted">{{ section.articleType }} </div>
+                        <p>
+                         {# {% for article in articleList %}
+                            <span class="badge bg-warning text-dark">{{ article.title }}</span>
+                            
+
+                        <p>{{ article.content }}
+                        </p>
+                        {% endfor %} #}
+                       </ul>
+                        {# {% else %} #}
+                        <h2>ArticlesProjectTechnos</h2>
+                        <ul class="list-unstyled">
+                             {% for article in articleList %}
+                            <li><span class="badge bg-danger fs-6 mb-2">Article {{ article.title }}</span><small class="ms-1">{{ article.content }}</small></li>
+                            <a href="{{ path('app_back_article_edit', {"id": article.id}) }}" class="btn btn-secondary">Modifier</a>
+                            {% endfor %}
+                        </ul>
+
+                        {# {% endif %} #}
+
+                        {# <dl class="row">
+                            <dt class="col-sm-12">Avec</dt>
+                            <dd class="col-sm-12">
+                            {% for casting in movie.castings %}
+                                {{ casting.person.firstname }} {{ casting.person.lastname }} ({{ casting.role }})<br>
+                            {% endfor %}
+                            </dd>
+                            <dt class="col-sm-12">Pays</dt>
+                            <dd class="col-sm-12">USA</dd>
+                            <dt class="col-sm-12">Année</dt>
+                            <dd class="col-sm-12">1998</dd>
+                        </dl>
+                        <a href="{{ path('review_add',{'id': movie.id}) }}"class="btn btn-secondary">Ajouter une critique</a>
+                        
+                    </div>
+                    <h3 class="mb-1">Critiques</h3>
+                        {% for review in movie.reviews %}
+                        <p>
+                            {{ review.content }}
+                            <small>{{ review.username }}</small>
+                        </p>
+                        {% endfor %} #}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
