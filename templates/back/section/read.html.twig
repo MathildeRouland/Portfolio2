@@ -17,7 +17,7 @@
                         <a class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a>
                         
                                               
-                        <h2>ArticlesProjectTechnos</h2>
+                        {# <h2>ArticlesProjectTechnos</h2> #}
                         <ul class="list-unstyled">
                              {% for article in articleList %}
                             <li><span class="badge bg-danger fs-6 mb-2">Article {{ article.title }}</span><small class="ms-1">{{ article.content }}</small></li>
