@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ArticleProjectTechnosType extends ArticleType
 {
@@ -15,9 +16,9 @@ class ArticleProjectTechnosType extends ArticleType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('image', FileType::class, [
-                'mapped' => true
-            ]);
+        ->add('image', TextType::class, [
+            'label' => 'Chemin du dossier', // Étiquette du champ
+            'required' => true,]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

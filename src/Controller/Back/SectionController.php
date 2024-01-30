@@ -4,19 +4,20 @@ namespace App\Controller\Back;
 
 use App\Entity\Article;
 use App\Entity\Section;
+use App\Entity\ArticleCv;
+use App\Form\ArticleType;
 use App\Form\SectionType;
+use App\Form\ArticleCvType;
+use App\Entity\ArticleProjectTechnos;
 use App\Repository\ArticleRepository;
 use App\Repository\SectionRepository;
+use App\Form\ArticleProjectTechnosType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use App\Entity\ArticleCv;
-use App\Form\ArticleCvType;
-use App\Entity\ArticleProjectTechnos;
-use App\Form\ArticleProjectTechnosType;
 
 
 /**
@@ -67,7 +68,7 @@ class SectionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","PATCH"})
      */
     public function edit(Section $section, SectionRepository $sectionRepository, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $em): Response
     {
@@ -91,7 +92,7 @@ class SectionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="delete", methods={"POST"}, requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, Section $section, SectionRepository $sectionRepository): Response
     {
@@ -114,12 +115,12 @@ class SectionController extends AbstractController
         // préparer les données
         $sectionWithArticles = $articleRepository->findArticlesBySectionId($section->getId());
         
-        
         // dump($sectionWithArticles);
+        
         // fournir les données à la vue
         return $this->render('back/section/article/browse.html.twig', [
             'sectionWithArticles' => $sectionWithArticles,
-            'section' => $section
+            'section' => $section,
         ]);
     }
 
@@ -181,4 +182,60 @@ class SectionController extends AbstractController
         }              
       
     }
+
+    /**
+     * Route("/{id}/article/{articleId}/edit", name="article_edit", methods={"GET","PATCH"})
+     */
+    public function articleEdit(Section $section, SectionRepository $sectionRepository, Article $article, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $em): Response
+    {
+        if ($section->getArticleType() == 'ArticleCv') {
+            $articleCv = $articleRepository->find($article->getId());
+            dump($articleCv);
+            $form = $this->createForm(ArticleCvType::class, $articleCv);
+           
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $em->persist($articleCv);
+                $em->flush();
+                // todo ajouter un message flash
+
+                return $this->redirectToRoute('app_back_section_article_browse', ['id' => $articleCv->getSection->getId()]);
+
+            }
+
+            return $this->renderForm('back/section/article/browse.html.twig', [
+                'form' => $form,
+                'articleCv' => $articleCv,
+                'section' => $section,
+                'article' => $article
+            ]);
+
+    } else if ($section->getArticleType() == 'ArticleProjectTechnos') {
+        $articleProjectTechnos = $articleRepository->find($article->getId());  
+                
+        $form = $this->createForm(ArticleProjectTechnosType::class, $articleProjectTechnos);
+       
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($articleProjectTechnos);
+            $em->flush();
+            // todo ajouter un message flash
+
+            return $this->redirectToRoute('app_back_section_article_browse', ['id' => $articleProjectTechnos->getSection->getId()]);
+
+        }
+    
+        return $this->renderForm('back/section/article/browse.html.twig', [
+            'form' => $form,
+            'articleProjectTechnos' => $articleProjectTechnos,
+            'section' => $section,
+            'article' => $article
+        ]);
+    
+
+    }
+}
+
 }

@@ -8,33 +8,66 @@
 <a class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a>
 
 <table class="table table-striped">
+    
+    {% if section.getArticleType() == 'ArticleCv' %}
+
     <thead>
         <tr>
             <th>#</th>
             <th>Titre</th>
             <th>Contenu</th>
             <th>Date</th>
-            <th>Lieu</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+        {% for currentArticle in sectionWithArticles %}
+            {# Afficher les détails spécifiques à ArticleCv #}
+            <tr>
+            <td>{{ currentArticle.id }}</td>
+            <td>{{ currentArticle.title }}</td>
+            <td>{{ currentArticle.content }}</td>
+            <td>{{ currentArticle.date }} </td>
+            <td>{{ currentArticle.location }} </td>
+            <td>
+                    <a href="{{ path('app_back_section_article_edit', {"id": currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
+                    <form method="post" action="{{ path('app_back_section_delete', {'id': currentArticle.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+        </tr>
+        {% endfor %}
+       
+    {% else %}
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Contenu</th>
             <th>Image</th>
         </tr>
     </thead>
     <tbody>
-
-    {% for currentArticle in sectionWithArticles %}
-        <tr>
+   
+        {% for currentArticle in sectionWithArticles %}
+            {# Afficher les détails spécifiques à ArticleProjectTechnos #}
+            <tr>
             <td>{{ currentArticle.id }}</td>
             <td>{{ currentArticle.title }}</td>
             <td>{{ currentArticle.content }}</td>
             <td>{{ currentArticle.image }} </td>
-            <td>
-                <form method="post" action="{{ path('app_back_section_delete', {'id': currentArticle.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
-                    <a href="{{ path('app_back_section_edit', {"id": currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
-                    {# <input type="hidden" name="_token" value="{{ csrf_token('delete-movie-' ~ currentCasting.id) }}"> #}
-                    <button class="btn btn-danger">Supprimer</button>
-                </form>
-            </td>
+                <td>
+                    <a href="{{ path('app_back_article_edit', { "id": currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
+                    <form method="post" action="{{ path('app_back_section_delete', {'id': currentArticle.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
         </tr>
-    {% endfor %}
+    
+        {% endfor %}
+       
+    {% endif %}
     </tbody>
 </table>
 {% endblock %}

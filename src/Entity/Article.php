@@ -49,6 +49,11 @@ abstract class Article
      */
     protected $alphaOrder;
 
+    public function __toString()
+    {
+        return $this->title;        
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,7 @@ class ArticleCv extends Article {
     private $location;
 
     // getters and setters //
+
 
     public function getDate(): ?string
     {
