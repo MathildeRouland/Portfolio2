@@ -42,11 +42,13 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid())
             {
+
+
                 $em->persist($articleCv);
                 $em->flush();
                 // todo ajouter un message flash
 
-                return $this->redirectToRoute('app_back_section_article_browse', ['articleId' => $articleCv->getSection->getId()]);
+                return $this->redirectToRoute('app_back_section_article_browse', ['id' => $section->getId()]);
 
             }
 
@@ -65,11 +67,13 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            
+
             $em->persist($articleProjectTechnos);
             $em->flush();
             // todo ajouter un message flash
 
-            return $this->redirectToRoute('app_back_section_article_browse', ['articleId' => $articleProjectTechnos->getSection->getId()]);
+            return $this->redirectToRoute('app_back_section_article_browse', ['id' => $article->getSection()->getId()]);
 
         }
     

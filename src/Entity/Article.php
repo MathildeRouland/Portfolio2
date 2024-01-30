@@ -95,6 +95,7 @@ abstract class Article
         return $this;
     }
 
+
     public function getAlphaOrder(): ?string
     {
         return $this->alphaOrder;
