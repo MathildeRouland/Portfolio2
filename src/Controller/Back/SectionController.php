@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Service\ArticleTypeResolver;
 
 
 /**
@@ -25,6 +26,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class SectionController extends AbstractController
 {
+    private $articleTypeResolver;
+    
+
+    public function __construct(ArticleTypeResolver $articleTypeResolver)
+    {
+        $this->articleTypeResolver = $articleTypeResolver;
+        
+    }
+
+
+    
     /**
      * @Route("/", name="browse")
      */
@@ -211,58 +223,133 @@ class SectionController extends AbstractController
     }
 
     /**
-     * Route("/{id}/article/{articleId}/edit", name="article_edit", methods={"GET","PATCH"})
+     * @Route("/{id}/article/{articleId}/edit", name="article_edit", methods={"GET", "POST"}, requirements={"id"="\d+", "articleId"="\d+"})
+     * @ParamConverter("article", options={"mapping": {"articleId": "id"}})
      */
     public function articleEdit(Section $section, SectionRepository $sectionRepository, Article $article, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $em): Response
     {
-        if ($section->getArticleType() == 'ArticleCv') {
-            $articleCv = $articleRepository->find($article->getId());
-            dump($articleCv);
-            $form = $this->createForm(ArticleCvType::class, $articleCv);
-           
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid())
-            {
-                $em->persist($articleCv);
-                $em->flush();
-                // todo ajouter un message flash
+        $oldSectionId = $article->getSection()->getId();
 
-                return $this->redirectToRoute('app_back_section_article_browse', ['id' => $articleCv->getSection->getId()]);
-
-            }
-
-            return $this->renderForm('back/section/article/browse.html.twig', [
-                'form' => $form,
-                'articleCv' => $articleCv,
-                'section' => $section,
-                'article' => $article
-            ]);
-
-    } else if ($section->getArticleType() == 'ArticleProjectTechnos') {
-        $articleProjectTechnos = $articleRepository->find($article->getId());  
-                
-        $form = $this->createForm(ArticleProjectTechnosType::class, $articleProjectTechnos);
-       
+        $form = $this->createFormForArticle($article, $section, $request);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
+
+        if ($form->isSubmitted()) {
+            $newSection = $form->getData()->getSection();
+            $newSectionId = $newSection->getId();
+
+            if ($oldSectionId != $newSectionId) {
+                $newArticleType = $newSection->getArticleType();
+                $newArticle = $this->createNewArticle($article, $newArticleType);
+                $this->cloneDatasToNewArticle($article, $newArticle, $newSection);
+                
+                $em->persist($newArticle);
+                $this->deleteOldArticle($article, $articleRepository);
+                $em->flush();
+                $this->addFlash('success', 'Article modifié');
+                
+
+                return $this->redirectToRoute('app_back_section_article_browse', ['id' => $newSectionId]);
+            }
+        }
+            
+            return $this->renderForm('back/section/article/edit.html.twig', [
+                'form' => $form,
+                'article' => $article,
+                'section' => $section,
+            ]);
+        }
+
+        private function createFormForArticle($article, $section, $request)
         {
-            $em->persist($articleProjectTechnos);
-            $em->flush();
-            // todo ajouter un message flash
+            $articleType = $this->articleTypeResolver->resolveArticleType($section);
+            
+            // Logique de mapping pour obtenir le nom du formulaire correspondant au type d'article
+            $formType = $this->getFormTypeForArticle($articleType);
+            
+            // Créer le formulaire en utilisant le nom du formulaire obtenu
+            $form = $this->createForm($formType, $article);
+            
+            return $form;
+        }
 
-            return $this->redirectToRoute('app_back_section_article_browse', ['id' => $articleProjectTechnos->getSection->getId()]);
+    private function getFormTypeForArticle($articleType)
+    {
+        // Mapping pour obtenir le nom du formulaire en fonction du type d'article
+        // utilise un tableau de correspondance entre le type d'article et le nom du formulaire
 
+        $formTypeMapping = [
+            'ArticleCv' => ArticleCvType::class,
+            'ArticleProjectTechnos' => ArticleProjectTechnosType::class,
+        ];
+        
+        // Vérifie si le type d'article a une correspondance dans le tableau de mapping
+        if (isset($formTypeMapping[$articleType])) {
+            return $formTypeMapping[$articleType];
+        } else {
+            throw new \InvalidArgumentException("Type d'article non pris en charge : $articleType");
+        }
+    }
+
+        private function createNewArticle($article, $articleType)
+        {
+            // Créer un nouvel objet d'article en fonction du type d'article.
+            
+        switch ($articleType) {
+            case 'ArticleCv':
+                return new ArticleCv();
+            case 'ArticleProjectTechnos':
+                return new ArticleProjectTechnos();
+            default:
+                throw new \InvalidArgumentException("Type d'article non pris en charge : $articleType");
+            }
+        }
+        
+
+
+        function cloneDatasToNewArticle($article, $newArticle, $newSection)
+        {
+        // Copie les valeurs spécifiques de l'objet actuel vers le nouvel objet
+        // donc les propriétés spécifiques à l'article CV ou à l'article ProjectTechnos
+            
+        $newArticle->setTitle($article->getTitle());
+        $newArticle->setContent($article->getContent());
+        $newArticle->setAlphaOrder($article->getAlphaOrder());
+        $newArticleType = $newSection->getArticleType();
+        $newArticle->setSection($newSection);
+
+        
+        switch ($newArticleType) {
+            case 'ArticleCv':
+                if (property_exists($article, 'date') && isset($article->date))
+                {
+                    $newArticle->setDate($article->getDate());
+                }else {
+                    $newArticle->setDate(''); 
+                }
+                if (property_exists($article, 'location') && isset($article->location)) {
+                    $newArticle->setLocation($article->getLocation());
+                }else {
+                    $newArticle->setLocation('');  
+                } 
+            break;
+            case 'ArticleProjectTechnos':
+                if (property_exists($article, 'image') && isset($article->image)) {
+                    $newArticle->setImage($article->getImage());
+                } else {
+                    $newArticle->setImage('');
+                }
+            break;
+            default:
+                throw new \InvalidArgumentException("Type d'article non pris en charge : $articleType");
+            }
         }
     
-        return $this->renderForm('back/section/article/browse.html.twig', [
-            'form' => $form,
-            'articleProjectTechnos' => $articleProjectTechnos,
-            'section' => $section,
-            'article' => $article
-        ]);
-    
-
+        public function deleteOldArticle($article, ArticleRepository $articleRepository)
+        {
+            
+            $articleRepository->remove($article, true);
+            $this->addFlash('success', 'article supprimé');
+        }
+            
     }
-}
 
-}

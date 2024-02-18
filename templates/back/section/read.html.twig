@@ -21,7 +21,7 @@
                         <ul class="list-unstyled">
                              {% for article in articleList %}
                             <li><span class="badge bg-danger fs-6 mb-2">Article {{ article.title }}</span><small class="ms-1">{{ article.content }}</small></li>
-                            <a href="{{ path('app_back_article_edit', {"id": article.id}) }}" class="btn btn-secondary">Modifier</a>
+                            <a href="{{ path('app_back_section_article_edit', {"id": section.id, "articleId": article.id}) }}" class="btn btn-secondary">Modifier</a>
                             {% endfor %}
                         </ul>
 

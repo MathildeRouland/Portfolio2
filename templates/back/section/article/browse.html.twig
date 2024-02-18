@@ -1,3 +1,4 @@
+{# {%  use 'Symfony\Component\Routing\Generator\UrlGeneratorInterface' as url %} #}
 {% extends 'base-back.html.twig' %}
 
 {% block title %}Article List for section {{ section.name }}{% endblock %}
@@ -28,15 +29,19 @@
             <td>{{ currentArticle.id }}</td>
             <td>{{ currentArticle.title }}</td>
             <td>{{ currentArticle.content }}</td>
-            {% if currentArticle.date is defined %}
-                <td>{{ currentArticle.date }}</td>
-            {% endif %}
-
-            {% if currentArticle.location is defined %}
-                <td>{{ currentArticle.location }}</td>
-            {% endif %}
             <td>
-                    <a href="{{ path('app_back_article_edit', {"id": currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
+            {% if currentArticle.date is defined %}
+                {{ currentArticle.date }}
+            {% endif %}
+            </td>
+            <td>
+            {% if currentArticle.location is defined %}
+                {{ currentArticle.location }}
+            {% endif %}
+            </td>
+            {# {{ dump (currentArticle.id)}} #}
+            <td>
+                    <a href="{{ path('app_back_section_article_edit', {'id': section.id, 'articleId': currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
                     <form method="post" action="{{ path('app_back_section_delete', {'id': currentArticle.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
                         <button class="btn btn-danger">Supprimer</button>
                     </form>
@@ -61,9 +66,11 @@
             <td>{{ currentArticle.id }}</td>
             <td>{{ currentArticle.title }}</td>
             <td>{{ currentArticle.content }}</td>
+            {% if currentArticle.image is defined %}
             <td>{{ currentArticle.image }} </td>
+            {% endif %}
                 <td>
-                    <a href="{{ path('app_back_article_edit', { "id": currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
+                    <a href="{{ path('app_back_section_article_edit', {'id': section.id, 'articleId': currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
                     <form method="post" action="{{ path('app_back_section_delete', {'id': currentArticle.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
                         <button class="btn btn-danger">Supprimer</button>
                     </form>

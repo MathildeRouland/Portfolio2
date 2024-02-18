@@ -16,6 +16,7 @@ class ArticleCvType extends ArticleType
         $builder
             ->add('date')
             ->add('location')
+            
         ;
     }
 
