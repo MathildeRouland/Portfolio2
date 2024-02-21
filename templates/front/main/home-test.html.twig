@@ -1,0 +1,336 @@
+{% extends "base.html.twig" %}
+{% block title %}Portfolio Mathilde Rouland{% endblock %}
+{% block body %}
+<main id="main">
+{% for section in sections %}
+    <!-- ======= About Section ======= -->
+    <section id="{{ section.cssClass }}" class=" {{ section.cssClass }}">
+        <div class="container">
+            <div class="section-title">
+                <h2>{{ section.name }}</h2>
+                <p>{{ section.content }}</p>
+            </div>
+            <div class="row">
+            {% for article in section.article %}
+                        <article>
+                       
+                            <h3>{{ article.title }}</h3>
+                            <p>{{ article.content }}</p>
+                        </article>
+                    {% endfor %}
+                <div class="col-lg-4" data-aos="fade-right">
+                    <img src="{{ asset('public/assets/img/profile-img.jpg') }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="chevron">
+                                <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>40</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="chevron">
+                                <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Rennes</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
+    
+
+    <!-- ======= Skills Section ======= -->
+    <section id="skills" class="skills section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Savoir-être et compétences </h2>
+          <b>Au fil de mes expériences, j'ai développé ma curiosité, mon adaptabilité, mon écoute et mon esprit d'équipe</b>
+          <p>J'ai également mis en pratique l'analyse des besoins client, la rédaction d'un cahier des charges, la conduite de projet, l'animation de réunions</p>
+        </div>
+
+        <div class="row skills-content">
+
+          <div class="col-lg-3" data-aos="fade-up">
+
+            <div class="progress">
+              <span class="skill">HTML5 </span>
+              <img src="{{ asset('assets/img/logo-html5.png') }}" height="60">
+            </div>
+
+            <div class="progress">
+              <span class="skill">CSS3 </span>
+              <img src="{{ asset('assets/img/logo-CSS3.png')}}" height="70">
+            </div>
+
+            <div class="progress">
+              <span class="skill">JavaScript </span>
+              <img src="{{ asset('assets/img/logo-js.png')}}" height="70">              
+            </div>
+
+          </div>
+
+          <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="progress">
+              <span class="skill">PHP </span>
+              <img src="{{ asset('assets/img/logo-php.png')}}" height="70">              
+            </div>
+
+            <div class="progress">
+              <span class="skill">Laravel </span>
+              <img src="{{ asset('assets/img/logo-laravel.png')}}" height="70">              
+            </div>
+
+            <div class="progress">
+              <span class="skill"></span>
+              <img src="{{ asset('assets/img/logo-symfony.png')}}" height="70">              
+            </div>
+          </div>
+
+            <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+
+              <div class="progress">
+              <span class="skill">SQL</span>
+              <img src="{{ asset('assets/img/logo-mariadb.png')}}" height="70">              
+            </div>
+
+            <div class="progress">
+              <span class="skill">Git</span>
+              <img src="{{ asset('assets/img/logo-git.png')}}" height="70">              
+            </div>
+
+            <!-- <div class="progress">
+              <span class="skill">API Rest </span>  
+              <span class="skill">architecture MVC </span>              
+            </div> -->
+    
+          </div>
+
+          <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="progress">
+            <span class="skill">C2i2e (Certificat Informatique et Internet niv.2 enseignant)</span>
+            <img src="assets/img/logo-c2i2e.jpg" height="70">            
+          </div>
+
+          <div class="progress">
+            <span class="skill">Anglais </span><p>niveau B2</p>              
+          </div>
+
+          <div class="progress">
+            <span class="skill">Certification Voltaire </span><p>899 points</p>              
+          </div>
+
+        </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Skills Section -->
+
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Curriculum Vitae</h2>
+          <a href="assets/cv-mathilde-rouland.pdf" target="_blank">Téléchargez mon CV</a> 
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">Experience</h3>
+            <div class="resume-item">
+              <h4>Développeur web</h4>
+              <h5>octobre 2023</h5>
+              <p><em>Ecole o'Clock </em></p>
+              <ul>
+                <li>Projet de fin de formation: <br>Réalisation d'une application web en équipe (4 personnes), de sa conception, jusqu'au déploiement d'un MVP en méthodologie agile.</li>
+                <!-- <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
+                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li> -->
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Ingénieur en développement-stage d'immersion</h4>
+              <h5>20 au 24/03/2023</h5>
+              <p><em>HelloWork, Rennes</em></p>
+              <ul>
+                <li>observation en équipe: conception technique, programmation et relecture de code, tests manuels et automatisés, analyse et résolution de problèmes de production,  livraison en production.</li>                
+              </ul>              
+            </div>
+            <div class="resume-item">
+              <h4>Chef de projet digital learning</h4>
+              <h5>mai à décembre 2022</h5>
+              <p><em>CLPS l'Enjeu compétences </em></p>
+              <ul>
+                <li>Modules parcours d'intégration des nouveaux collaborateurs (synopsis, storyboard, réalisation)</li>
+                <li>Formation des collaborateurs à l'ENT O365</li>
+                <li>Réalisation de tutoriels vidéos</li>           
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Chargée d'e-ingénierie pédagogique</h4>
+              <h5>fév. 2021 à fév. 2022</h5>
+              <p><em>Ecole Supérieure d'Agriculture d'Angers</em></p>
+              <ul>
+                <li>Schémas pédagogiques interactifs et motion design (Genially, Blender) - visite virtuelle médiathèque (Uptale) - Recettage (LMS Moodle)</li>
+                <li>Digitalisation de ressources (Scenari, Opale), création d'illustrations, exercices interactifs</li>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Chargée de communication et de formation</h4>
+              <h5>fév. 2017 à juin 2019</h5>
+              <p><em>Association InPACT Nouvelle-Aquitaine</em></p>
+              <ul>
+                <li>Animation et coordination d'un réseau de 9 associations régionales</li>
+                <li>communication: externe et interne, utilisation du backoffice du site web</li>
+                <li>événementiel: organisation d'un festival (20 partenaires, 1000 visiteurs)</li>
+                <li> gestion de projet - organisation de formations et référencement Datadock</li>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Animatrice multimédia</h4>
+              <h5>juin 2012 à décembre 2013</h5>
+              <p><em>Espace Public Numérique, centre de ressources CFPPA de Die (26)</em></p>
+              <ul>
+                <li>Médiation numérique et formation</li>
+                <li>événementiel (exposition d'art numérique)</li>
+                <li>maintenance de niveau 1 du parc informatique</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up">
+            
+            <h3 class="resume-title">Formation</h3>
+            <div class="resume-item">
+              <h4>Développeur web</h4>
+              <h5>juin - novembre 2023</h5>
+              <p><em>Ecole O'Clock</em></p>
+              <p>798h - HTML5, CSS3, Javascript, PHP, Laravel, Symfony, Twig, Doctrine, architecture MVC, MariaDB, API Rest, Git, Github...</p>
+            </div>
+            <div class="resume-item">
+              <h4>Digital Job Experience</h4>
+              <h5>février 2023</h5>
+              <p><em>Estim Numérique</em></p>
+              <p>2 jours pour découvrir les métiers du web, conception d'un site et création d'une page web statique</p>
+            </div>
+            <div class="resume-item">
+              <h4>Html5, CSS3, Javascript</h4>
+              <h5>janvier à juin 2023</h5>
+              <p><em>OpenClassroom</em></p>
+              <p>autoformation</p>
+            </div>
+            <div class="resume-item">
+              <h4>Concepteur de contenus formatifs digitaux</h4>
+              <h5>2020 - 2021</h5>
+              <p><em>Evocime, Rennes</em></p>
+            </div>
+            <div class="resume-item">
+              <h4>Master 2 enseignement agricole et développement rural (distanciel)</h4>
+              <h5>2011 - 2014</h5>
+              <p><em>ENSFEA</em></p>
+              <p>option éducation socioculturelle</p>
+            </div>
+            <div class="resume-item">
+              <h4>Diplôme Universitaire des Métiers d'Art</h4>
+              <h5>2007 - 2010</h5>
+              <p><em>Ecole Supérieure des Métiers d'Art d'Arras</em></p>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </section><!-- End Resume Section -->
+
+    <!-- ======= Projets Section ======= -->
+    
+    <section id="projets" class="projets">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Projets</h2>
+          <p>J'ai travaillé sur quelques projets avant d'entrer chez O'Clock. Ensuite, tout au long de la formation, j'ai pu mettre en pratique mes connaissances sur plusieurs projets articulant frontend et backend. Celle-ci se termine par un projet final d'un mois.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+            <div class="icon"><i class="bi bi-briefcase"></i></div>
+            <h4 class="title">Projet de fin de formation</h4>
+            <p class="description">Projet "Association Entraide Chômeurs" en équipe de 5 (3 dont moi-même pour le backend et 2 pour le frontend), avec le framework Symfony, de sa conception, jusqu'au déploiement d'un MVP en méthodologie agile, où j'assurais le rôle de scrum master.</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><i class="bi bi-binoculars"></i></div>
+            <h4 class="title">Catalogue de films (En cours)</h4>
+            <p class="description">Site catalogue de films avec Symfony, une API Rest, Doctrine, Twig, mise en place de l'authentification. </p>
+          </div>          
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><i class="bi bi-boxes"></i></div>
+            <h4 class="title">Back-office Laravel</h4>
+            <p class="description">Projet de back-office avec le framework Laravel, l'API Rest et l'ORM Eloquent, appel de l'API avec Javascript, authentification </p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="bi bi-card-checklist"></i></div>
+            <h4 class="title">Mini-site catalogue produits</h4>
+            <p class="description">Mise en place de l'architecture MVC, SQL avec MariaDB, PSR-4 autoload et namespaces</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="bi bi-boxes"></i></div>
+            <h4 class="title">Plugin Ruby pour Sketchup Pro</h4>
+            <p class="description">Participation à l'écriture d'un plugin Sketchup Pro en Ruby qui permet de lister le matériel technique mis en œuvre dans le cadre d'événements festifs.</p>
+          </div>
+          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="bi bi-boxes"></i></div>
+            <h4 class="title">Script Google App</h4>
+            <p class="description">Réalisation de scripts Google App Script pour google Sheet, utilisés dans le cadre des outils de gestion d'un festival de musique (<a href="https://biches-festival.fr/">Biches Festival</a>).
+            </p>
+          </div>
+          
+        </div>
+
+      </div>
+    
+    </section><!-- End Projets Section -->
+
+    
+
+    
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contactez-moi</h2>
+          
+        </div>
+        
+        <i class="bi bi-telephone"></i><a class="contact" href="tel:0662380414">06 62 38 04 14</a><br>
+        <i class="bi bi-envelope"></i><a class="contact" href="mailto:matrouland@gmail.com">matrouland@gmail.com</a>
+        <!-- <img class="contact-icon" src="assets/img/mail.png" alt="enveloppe" height="30" width="180"> -->
+
+        <!-- <div class="row" data-aos="fade-in">
+
+          
+
+          
+
+        </div> -->
+
+      </div>
+      
+    </section><!-- End Contact Section -->
+ 
+  </main><!-- End #main -->
+{% endblock %}
+
+
+

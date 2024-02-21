@@ -41,6 +41,12 @@ class Section
      */
     private $articleType;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $css_class;
+
+
     public function __construct()
     {
         $this->Article = new ArrayCollection();
@@ -118,6 +124,18 @@ class Section
     public function setArticleType(?string $articleType): self
     {
         $this->articleType = $articleType;
+
+        return $this;
+    }
+
+    public function getCssClass(): ?string
+    {
+        return $this->css_class;
+    }
+
+    public function setCssClass(string $css_class): self
+    {
+        $this->css_class = $css_class;
 
         return $this;
     }

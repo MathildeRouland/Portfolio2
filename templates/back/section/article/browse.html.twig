@@ -19,6 +19,7 @@
             <th>Contenu</th>
             <th>Date</th>
             <th>Location</th>
+            <th>Ordre alphabétique</th>
         </tr>
     </thead>
     <tbody>
@@ -39,6 +40,8 @@
                 {{ currentArticle.location }}
             {% endif %}
             </td>
+            <td>{{ currentArticle.alphaOrder }}</td>
+            
             {# {{ dump (currentArticle.id)}} #}
             <td>
                     <a href="{{ path('app_back_section_article_edit', {'id': section.id, 'articleId': currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>
@@ -56,6 +59,7 @@
             <th>Titre</th>
             <th>Contenu</th>
             <th>Image</th>
+            <th>Ordre alphabétique</th>
         </tr>
     </thead>
     <tbody>
@@ -68,6 +72,7 @@
             <td>{{ currentArticle.content }}</td>
             {% if currentArticle.image is defined %}
             <td>{{ currentArticle.image }} </td>
+            <td>{{ currentArticle.alphaOrder }} </td>
             {% endif %}
                 <td>
                     <a href="{{ path('app_back_section_article_edit', {'id': section.id, 'articleId': currentArticle.id}) }}" class="btn btn-secondary">Modifier</a>

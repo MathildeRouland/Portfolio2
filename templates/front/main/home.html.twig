@@ -1,64 +1,90 @@
 {% extends "base.html.twig" %}
+{% block title %}Portfolio Mathilde Rouland{% endblock %}
 {% block body %}
 <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
+<!-- Première section -->
+<section id="{{ sections[0].cssClass }}" class="{{ sections[0].cssClass }}">
+    <div class="container">
         <div class="section-title">
-          <h2>A propos de moi</h2>
-          <p>Après avoir occupé plusieurs postes en lien avec le digital, notamment animatrice multimédia, chargée de communication et conceptrice digital learning, j’ai eu envie de passer de l’autre côté des interfaces. Je me suis alors reconvertie en tant que développeuse web, pour mettre mon enthousiasme et mon goût pour la résolution de problèmes techniques au service d'un projet d'équipe.</p>
-          
-          <br><p>Que diriez-vous de m'intégrer dans votre équipe? Rencontrons-nous! </p>
+            <h2>{{ sections[0].name }}</h2>
+            <p>{{ sections[0].content|raw }}</p>
         </div>
-
         <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="chevron">
-                  
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>39</span></li>
-                  
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="chevron">
-                  
-                  <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Rennes</span></li>
-                  
-                </ul>
-              </div>
+            <div class="col-lg-4" data-aos="fade-right">
+                <img src="{{ asset('assets/img/profile-img.jpg') }}" class="img-fluid" alt="">
             </div>
-            <h3>Développeuse web</h3>
-            <p>En formation de développeur web chez O'Clock - de juin à mi-novembre 2023 - je suis en spécialisation backend sur le framework Symfony.</p>
-            <p>La formation m'a amenée à travailler sur plusieurs projets concrets comme un catalogue de produits type site de vente en ligne, ou des backoffices avec API et authentification. </p>
-            
-            <p>Le programme repose sur une formation de 6 mois:</p>
-            <ul>
-              <li>un socle de 3 mois sur les technologies et notions suivantes:</li>
-                <ul>
-                  <li>HTML 5, CSS3, Javascript; </li>
-                  <li>PHP, SQL;</li>
-                  <li>Gestion de projet et agilité.</li>
-                </ul>
-              <li>1 mois de spécialisation sur Symfony</li>
-              <li>1 mois de projet en équipe.</li>          
-            </ul>             
-          
-          </div>
+            <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="chevron">
+                            <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>40</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="chevron">
+                            <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Rennes</span></li>
+                        </ul>
+                    </div>
+                </div>
+                {% for article in sections[0].article %}
+                    <div class="col-lg-12">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|raw }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
+    </div>
+</section>
 
-      </div>
-    </section><!-- End About Section -->
-
+<!-- Boucle pour les autres sections -->
+{% for section in sections[1:] %}
+    <section id="{{ section.cssClass }}" class="{{ section.cssClass }}">
+        <div class="container">
+        {% if section.name == "Savoir-être et compétences" %}
+        <section id="skills" class="skills section-bg">
+            <div class="container">
+                <div class="section-title">
+                    <h2>{{ section.name }}</h2>
+                    <p>{{ section.content|raw }}</p>
+                </div>
+                <div class="row skills-content">
+                    {% for article in section.article %}
+                        <div class="col-lg-3" data-aos="fade-up">
+                            <div class="progress">
+                                <span class="skill">{{ article.title }}</span>
+                                {% if article.image is defined and article.image != '' %}
+                                <img src="{{ asset('' ~ article.image) }}" height="70">
+                                {% endif %}
+                                <p>{{ article.content }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section><!-- End Skills Section -->
+    {% endif %}
+    {% if section.name != "Savoir-être et compétences" %}
+            <div class="section-title">
+                <h2>{{ section.name }}</h2>
+                <p>{{ section.content|raw }}</p>
+            </div>
+            
+            <div class="row">
+                {% for article in section.article %}
+                    <div class="col-lg-12">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|raw }}</p>
+                    </div>
+                {% endfor %}
+    {% endif %}
+            </div>
+        </div>
+    </section>
+{% endfor %}
     
 
-    <!-- ======= Skills Section ======= -->
+    {# <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills section-bg">
       <div class="container">
 
@@ -74,17 +100,17 @@
 
             <div class="progress">
               <span class="skill">HTML5 </span>
-              <img src="assets/img/logo-html5.png" height="60">
+              <img src="{{ asset('assets/img/logo-html5.png') }}" height="60">
             </div>
 
             <div class="progress">
               <span class="skill">CSS3 </span>
-              <img src="assets/img/logo-CSS3.png" height="70">
+              <img src="{{ asset('assets/img/logo-CSS3.png')}}" height="70">
             </div>
 
             <div class="progress">
               <span class="skill">JavaScript </span>
-              <img src="assets/img/logo-js.png" height="70">              
+              <img src="{{ asset('assets/img/logo-js.png')}}" height="70">              
             </div>
 
           </div>
@@ -93,17 +119,17 @@
 
             <div class="progress">
               <span class="skill">PHP </span>
-              <img src="assets/img/logo-php.png" height="70">              
+              <img src="{{ asset('assets/img/logo-php.png')}}" height="70">              
             </div>
 
             <div class="progress">
               <span class="skill">Laravel </span>
-              <img src="assets/img/logo-laravel.png" height="70">              
+              <img src="{{ asset('assets/img/logo-laravel.png')}}" height="70">              
             </div>
 
             <div class="progress">
               <span class="skill"></span>
-              <img src="assets/img/logo-symfony.png" height="70">              
+              <img src="{{ asset('assets/img/logo-symfony.png')}}" height="70">              
             </div>
           </div>
 
@@ -111,12 +137,12 @@
 
               <div class="progress">
               <span class="skill">SQL</span>
-              <img src="assets/img/logo-mariadb.png" height="70">              
+              <img src="{{ asset('assets/img/logo-mariadb.png')}}" height="70">              
             </div>
 
             <div class="progress">
               <span class="skill">Git</span>
-              <img src="assets/img/logo-git.png" height="70">              
+              <img src="{{ asset('assets/img/logo-git.png')}}" height="70">              
             </div>
 
             <!-- <div class="progress">
@@ -130,7 +156,7 @@
 
             <div class="progress">
             <span class="skill">C2i2e (Certificat Informatique et Internet niv.2 enseignant)</span>
-            <img src="assets/img/logo-c2i2e.jpg" height="70">            
+            <img src="{{ asset('assets/img/logo-c2i2e.jpg')}}" height="70">            
           </div>
 
           <div class="progress">
@@ -328,6 +354,7 @@
           <h2>Contactez-moi</h2>
           
         </div>
+        
         <i class="bi bi-telephone"></i><a class="contact" href="tel:0662380414">06 62 38 04 14</a><br>
         <i class="bi bi-envelope"></i><a class="contact" href="mailto:matrouland@gmail.com">matrouland@gmail.com</a>
         <!-- <img class="contact-icon" src="assets/img/mail.png" alt="enveloppe" height="30" width="180"> -->
@@ -341,10 +368,11 @@
         </div> -->
 
       </div>
-    </section><!-- End Contact Section -->
-
+      
+    </section><!-- End Contact Section --> #}
+ 
   </main><!-- End #main -->
-  {% endblock %}
+{% endblock %}
 
 
 

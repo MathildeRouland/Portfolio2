@@ -12,6 +12,7 @@
             <th>Nom de la section</th>
             <th>Contenu</th>
             <th>Type d'articles</th>
+            <th>Classe css</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td>{{ currentSection.name }}</td>
             <td>{{ currentSection.content }}</td>
             <td>{{ currentSection.articleType }}</td>
+            <td>{{ currentSection.cssClass }}</td>
             <td>
                 <form style="display:inline" method="post" action="{{ path('app_back_section_delete', {'id': currentSection.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
                     <a href="{{ path('app_back_section_read', {"id": currentSection.id}) }}" class="btn btn-secondary">Afficher la section</a>

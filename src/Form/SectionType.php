@@ -24,6 +24,7 @@ class SectionType extends AbstractType
                 'multiple' => false,
                 'expanded' => true
             ])
+            ->add('css_class')
         ;
     }
 

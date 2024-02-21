@@ -107,7 +107,7 @@ class SectionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","PATCH"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Section $section, SectionRepository $sectionRepository, ArticleRepository $articleRepository, Request $request, EntityManagerInterface $em): Response
     {
@@ -249,8 +249,20 @@ class SectionController extends AbstractController
                 
 
                 return $this->redirectToRoute('app_back_section_article_browse', ['id' => $newSectionId]);
+            
+            } elseif ($form->isSubmitted() && $form->isValid())
+            {
+                $em->persist($article);
+                $em->flush();
+                $this->addFlash('success', 'Article modifié');
+                
+
+                return $this->redirectToRoute('app_back_section_article_browse', ['id' => $article->getSection()->getId()]);
             }
+
+
         }
+            
             
             return $this->renderForm('back/section/article/edit.html.twig', [
                 'form' => $form,
@@ -340,7 +352,7 @@ class SectionController extends AbstractController
                 }
             break;
             default:
-                throw new \InvalidArgumentException("Type d'article non pris en charge : $articleType");
+                throw new \InvalidArgumentException("Type d'article non pris en charge :$newArticleType");
             }
         }
     
