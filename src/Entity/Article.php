@@ -49,6 +49,11 @@ abstract class Article
      */
     protected $alphaOrder;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $category;
+
     public function __toString()
     {
         return $this->title;        
@@ -104,6 +109,18 @@ abstract class Article
     public function setAlphaOrder(?string $alphaOrder): self
     {
         $this->alphaOrder = $alphaOrder;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

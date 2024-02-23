@@ -16,6 +16,7 @@ class ArticleType extends AbstractType
             ->add('content')
             ->add('alphaOrder')
             ->add('section')
+            ->add('category')
         ;
     }
 

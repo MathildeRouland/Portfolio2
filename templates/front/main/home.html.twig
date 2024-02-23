@@ -38,6 +38,7 @@
 </section>
 
 <!-- Boucle pour les autres sections -->
+{% set cvDisplayed = false %}
 {% for section in sections[1:] %}
     <section id="{{ section.cssClass }}" class="{{ section.cssClass }}">
         <div class="container">
@@ -64,22 +65,65 @@
             </div>
         </section><!-- End Skills Section -->
     {% endif %}
-    {% if section.name != "Savoir-être et compétences" %}
+    {% if section.name != "Savoir-être et compétences" and section.name != "Curriculum Vitae"%}
             <div class="section-title">
                 <h2>{{ section.name }}</h2>
                 <p>{{ section.content|raw }}</p>
             </div>
             
-            <div class="row">
+            <div class="row skills-content">
                 {% for article in section.article %}
-                    <div class="col-lg-12">
+                    <div class="col-lg-3">
                         <h3>{{ article.title }}</h3>
                         <p>{{ article.content|raw }}</p>
                     </div>
                 {% endfor %}
     {% endif %}
-            </div>
-        </div>
+    {% if section.name == "Curriculum Vitae" and not cvDisplayed %}
+                {% set cvDisplayed = true %}
+                <section id="resume" class="resume">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>{{ section.name }}</h2>
+                            <a href="{{ asset('assets/cv-mathilde-rouland.pdf')}}" target="_blank">Téléchargez mon CV</a> 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                                <h3 class="resume-title">Expérience</h3>
+                                {% for article in section.article %}
+                                    {% if article.category == "Expérience" %}
+                                        <div class="resume-item">
+                                            <h4>{{ article.title }}</h4>
+                                            <h5>{{ article.date }}</h5>
+                                            <p><em>{{ article.location }}</em></p>
+                                            <ul>
+                                                <li>{{ article.content|raw }}</li>
+                                                <!-- Ajoutez d'autres détails de l'expérience ici si nécessaire -->
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                                <h3 class="resume-title">Formation</h3>
+                                {% for article in section.article %}
+                                    {% if article.category == "Formation" %}
+                                        <div class="resume-item">
+                                            <h4>{{ article.title }}</h4>
+                                            <h5>{{ article.date }}</h5>
+                                            <p><em>{{ article.location }}</em></p>
+                                            <ul>
+                                                <li>{{ article.content|raw }}</li>
+                                                <!-- Ajoutez d'autres détails de la formation ici si nécessaire -->
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
     </section>
 {% endfor %}
     

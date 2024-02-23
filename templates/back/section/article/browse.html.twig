@@ -20,6 +20,7 @@
             <th>Date</th>
             <th>Location</th>
             <th>Ordre alphabétique</th>
+            <th>Catégorie</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,11 @@
             {% endif %}
             </td>
             <td>{{ currentArticle.alphaOrder }}</td>
+            <td>
+            {% if currentArticle.category is defined %}
+                {{ currentArticle.category }}
+            {% endif %}
+            </td>
             
             {# {{ dump (currentArticle.id)}} #}
             <td>
