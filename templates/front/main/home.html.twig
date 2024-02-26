@@ -84,14 +84,16 @@
                                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                                     <h3 class="resume-title">Formation</h3>
                                     {% for article in section.article %}
-                                        {% if article.category == "Formation" %}
+                                        {% if article.category == "Formation"  %}
                                             <div class="resume-item">
                                                 <h4>{{ article.title }}</h4>
                                                 <h5>{{ article.date }}</h5>
                                                 <p><em>{{ article.location }}</em></p>
+                                                {% if article.content is not empty %}
                                                 <ul>
                                                     <li>{{ article.content|raw }}</li>
                                                 </ul>
+                                                {% endif %}
                                             </div>
                                         {% endif %}
                                     {% endfor %}
