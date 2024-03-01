@@ -19,10 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Service\ArticleTypeResolver;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 
 /**
  * @Route("/back/section", name="app_back_section_")
+ * @IsGranted("ROLE_ADMIN")
  */
 class SectionController extends AbstractController
 {
