@@ -21,8 +21,10 @@ security:
                 login_path: app_login
                 check_path: app_login
                 username_parameter: _email
+                default_target_path: /back/section
             logout:
                 path: app_logout
+                target: /login
         login:
             pattern: ^/login        
 
