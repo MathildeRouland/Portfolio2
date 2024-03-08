@@ -9,19 +9,22 @@
                 <div
                     class="row g-0 borderrr rrrounded overflow-hidden flex-md-row align-items-start mb-4 shadow-smmm position-relative">
                     
-                    <div class="col-8 p-4 d-flex flex-column position-static bg-light">
+                    <div id="sectionPresentation" class="col-10 p-4 d-flex flex-column position-static bg-light">
                         {# <strong class="d-inline-block mb-2 text-primary">{{ section.name }}</strong> #}
-                        <h3 class="mb-1">{{section.name }}</h3>
-                        <div class="mb-1 text-muted">{{ section.content }} </div>
-                        <h1>Articles de la section {{ section.name }}</h1>
-                        <a class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a>
+                        <h1 class="mb-1">Section "{{section.name }}"</h1>
+                        <div id="sectionContent" class="mb-5 text-muted">{{ section.content }} </div>
+                        <h2 class="mb-3">Articles de la section {{ section.name }} <a id="addArticle" class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a></h2>
+                        
                         
                                               
                         {# <h2>ArticlesProjectTechnos</h2> #}
                         <ul class="list-unstyled">
                              {% for article in articleList %}
-                            <li><span class="badge bg-danger fs-6 mb-2">Article {{ article.title }}</span><small class="ms-1">{{ article.content }}</small></li>
-                            <a href="{{ path('app_back_section_article_edit', {"id": section.id, "articleId": article.id}) }}" class="btn btn-secondary">Modifier</a>
+                            <li class="badge bg-secondary fs-6 mt-3 mb-1">Article {{ article.title }} <a href="{{ path('app_back_section_article_edit', {"id": section.id, "articleId": article.id}) }}" class="mb-1 mt-1 btn btn-danger">Modifier</a>
+                            <li class="ms-1 mb-4"><small class="ms-1">{{ article.content }}</small></li>
+                            </li>
+                            
+                            
                             {% endfor %}
                         </ul>
 

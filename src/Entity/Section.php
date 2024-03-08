@@ -8,6 +8,8 @@ use App\Repository\SectionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=SectionRepository::class)
@@ -19,10 +21,12 @@ class Section
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $name;
 

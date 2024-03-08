@@ -98,7 +98,7 @@ class SectionController extends AbstractController
 
             $em->persist($section);
             $em->flush();
-            // todo ajouter un message flash
+            $this->addFlash('success', 'Section ajoutée');
 
             return $this->redirectToRoute('app_back_section_browse');
 
@@ -121,7 +121,7 @@ class SectionController extends AbstractController
         {
             $em->persist($section);
             $em->flush();
-            // todo ajouter un message flash
+            $this->addFlash('success', 'Section modifiée');
 
             return $this->redirectToRoute('app_back_section_browse');
 

@@ -26,10 +26,10 @@
             <td>{{ currentSection.cssClass }}</td>
             <td>
                 <form style="display:inline" method="post" action="{{ path('app_back_section_delete', {'id': currentSection.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
-                    <a href="{{ path('app_back_section_read', {"id": currentSection.id}) }}" class="btn btn-secondary">Afficher la section</a>
-                    <a href="{{ path('app_back_section_edit', {"id": currentSection.id}) }}" class="btn btn-secondary">Modifier la section</a>
+                    <a href="{{ path('app_back_section_read', {"id": currentSection.id}) }}" class="btn btn-secondary btn-sm">Afficher</a>
+                    <a href="{{ path('app_back_section_edit', {"id": currentSection.id}) }}" class="btn btn-secondary btn-sm">Modifier</a>
                     {# <input type="hidden" name="_token" value="{{ csrf_token('delete-section-' ~ currentSection.id) }}"> #}
-                    <button class="btn btn-danger">Supprimer</button>
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
                 </form>
                 {# <a class="btn btn-secondary" href="{{ path('app_back_section_article_browse', {id: currentSection.id}) }}">Articles</a> #}
             </td>

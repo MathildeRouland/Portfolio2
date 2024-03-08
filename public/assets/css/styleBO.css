@@ -1,0 +1,22 @@
+
+.btn {
+    margin-bottom: 10px; 
+    width: 150px;
+    margin-left: 30px;
+  }
+
+  #sectionPresentation {
+    margin-bottom: 30px; /* Ajoute une marge de 30 pixels en bas de la div */
+  }
+
+  #sectionContent {
+    margin-bottom: 50px; /* Ajoute une marge de 50 pixels en bas de la div */
+  }
+
+  #addArticle {
+    margin-left: 50px; /* Ajoute une marge de 50 pixels en bas du bouton */
+  }
+
+  /* h2 {
+    margin-bottom: 30px;
+  } */
