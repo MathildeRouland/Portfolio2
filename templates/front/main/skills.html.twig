@@ -1,0 +1,18 @@
+
+
+        <div class="row skills-content">
+
+        
+        {% for article in section.article %}
+            <div class="col-lg-3" data-aos="fade-up">
+                <div class="progress">
+                    <span class="skill">{{ article.title }}</span>
+                    {% if article.image is defined and article.image != '' %}
+                        <img src="{{ asset('' ~ article.image) }}" height="70">
+                    {% endif %}
+                    <p>{{ article.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
