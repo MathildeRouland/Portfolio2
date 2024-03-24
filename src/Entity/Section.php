@@ -28,7 +28,7 @@ class Section
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -48,7 +48,7 @@ class Section
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $css_class;
+    private $designation;
 
 
     public function __construct()
@@ -58,7 +58,7 @@ class Section
 
     public function __toString()
     {
-        return $this->name;        
+        return $this->title;        
     }
 
     public function getId(): ?int
@@ -66,14 +66,14 @@ class Section
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -132,14 +132,14 @@ class Section
         return $this;
     }
 
-    public function getCssClass(): ?string
+    public function getDesignation(): ?string
     {
-        return $this->css_class;
+        return $this->designation;
     }
 
-    public function setCssClass(string $css_class): self
+    public function setDesignation(string $designation): self
     {
-        $this->css_class = $css_class;
+        $this->designation = $designation;
 
         return $this;
     }

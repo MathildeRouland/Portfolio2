@@ -14,7 +14,7 @@ class SectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('title')
             ->add('content')
             ->add('articleType', ChoiceType::class, [
                 'choices' => [
@@ -24,7 +24,7 @@ class SectionType extends AbstractType
                 'multiple' => false,
                 'expanded' => true
             ])
-            ->add('css_class')
+            ->add('designation')
         ;
     }
 

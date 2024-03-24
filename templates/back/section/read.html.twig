@@ -11,9 +11,9 @@
                     
                     <div id="sectionPresentation" class="col-10 p-4 d-flex flex-column position-static bg-light">
                         {# <strong class="d-inline-block mb-2 text-primary">{{ section.name }}</strong> #}
-                        <h1 class="mb-1">Section "{{section.name }}"</h1>
+                        <h1 class="mb-1">Section "{{section.title }}"</h1>
                         <div id="sectionContent" class="mb-5 text-muted">{{ section.content }} </div>
-                        <h2 class="mb-3">Articles de la section {{ section.name }} <a id="addArticle" class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a></h2>
+                        <h2 class="mb-3">Articles de la section {{ section.title }} <a id="addArticle" class="btn btn-primary" href="{{ path('app_back_section_article_add', {id: section.id}) }}">Ajouter</a></h2>
                         
                         
                                               

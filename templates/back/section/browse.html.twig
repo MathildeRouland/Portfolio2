@@ -9,10 +9,10 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Nom de la section</th>
+            <th>Titre de la section</th>
             <th>Contenu</th>
             <th>Type d'articles</th>
-            <th>Classe css</th>
+            <th>Désignation</th>
         </tr>
     </thead>
     <tbody>
@@ -20,10 +20,10 @@
     {% for currentSection in sectionList %}
         <tr>
             <td>{{ currentSection.id }}</td>
-            <td>{{ currentSection.name }}</td>
+            <td>{{ currentSection.title }}</td>
             <td>{{ currentSection.content }}</td>
             <td>{{ currentSection.articleType }}</td>
-            <td>{{ currentSection.cssClass }}</td>
+            <td>{{ currentSection.designation }}</td>
             <td>
                 <form style="display:inline" method="post" action="{{ path('app_back_section_delete', {'id': currentSection.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer');">
                     <a href="{{ path('app_back_section_read', {"id": currentSection.id}) }}" class="btn btn-secondary btn-sm">Afficher</a>

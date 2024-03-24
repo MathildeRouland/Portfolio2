@@ -10,3 +10,4 @@
 ###< symfony/framework-bundle ###
 /assets/
 /doc/bdd.sql
+/doc/bdd2.sql

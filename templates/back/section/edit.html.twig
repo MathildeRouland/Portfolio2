@@ -3,7 +3,7 @@
 {% block title %}Section edit{% endblock %}
 
 {% block body %}
-<h1>Modifier {{ section.name }} {% if section.articleType == "ArticleCv" %} ArticleCv {% else %} ArticleProjectTechnos {% endif %} </h1>
+<h1>Modifier {{ section.title }} {% if section.articleType == "ArticleCv" %} ArticleCv {% else %} ArticleProjectTechnos {% endif %} </h1>
 
 {{ form_start(form, {"attr": {"novalidate": "novalidate"}}) }}
 <button class="btn btn-primary">Modifier</button>

@@ -4,22 +4,22 @@
 <main id="main">
     {% for section in sections %}
         
-            <section id="{{ section.cssClass }}" class="{{ section.cssClass }}">
+            <section id="{{ section.designation }}" class="{{ section.designation }}">
                 <div class="container">
                     <div class="section-title">
-                        <h2>{{ section.name }}</h2>
+                        <h2>{{ section.title }}</h2>
                         <p>{{ section.content|raw }}</p>
                     </div>
                     <div class="row">
-                    {% if section.cssClass == 'about' %}
+                    {% if section.designation == 'about' %}
                         {% include 'front/main/about.html.twig' %}
-                    {% elseif section.cssClass == 'skills' %}
+                    {% elseif section.designation == 'skills' %}
                         {% include 'front/main/skills.html.twig' %}
-                    {% elseif section.cssClass == 'resume' %}
+                    {% elseif section.designation == 'resume' %}
                         {% include 'front/main/resume.html.twig' %}
-                    {% elseif section.cssClass == 'projects' %}
+                    {% elseif section.designation == 'projects' %}
                         {% include 'front/main/projects.html.twig' %}
-                    {% elseif section.cssClass == 'contact' %}
+                    {% elseif section.designation == 'contact' %}
                         {% include 'front/main/contact.html.twig' %}
                     {% endif %}
                     </div>
